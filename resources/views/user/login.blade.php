@@ -21,6 +21,11 @@
 					<label for="password">Password</label>
 					{!! Form::password('password',['class'=>'form-control','required']) !!}
 				</div>
+				<div class="checkout">
+					<label for="rememberMe">
+						<input type="checkbox" name="rememberMe" checked="true"> Remember Me ?
+					</label>
+				</div>
 				{!! Form::submit('Log In',['class'=>'btn btn-primary btn-block']) !!}
 				{!! Form::close() !!}
 			</div>

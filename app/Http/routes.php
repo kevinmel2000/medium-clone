@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/',['as'=>'home','uses'=>'HomeController@index']);
 get('login',['as'=>'user.login','uses'=>'UserController@getLogin']);
 post('login',['as'=>'user.postLogin','uses'=>'UserController@postLogin']);
 Route::group(['middleware'=>'auth'],function(){
 	Route::resource('user','UserController');
+	Route::get('user/{username}/settings',['as'=>'user.setting','uses'=>'UserController@getSetting']);
 });

@@ -1,8 +1,10 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests;
+use App\User;
+use Auth;
+use Redirect;
 use Request;
 
 class UserController extends Controller {
@@ -43,9 +45,10 @@ class UserController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($username)
 	{
-		//
+		$user = User::where('username',$username)->first();
+		return view('user.show')->withUser($user);
 	}
 
 	/**
@@ -88,6 +91,16 @@ class UserController extends Controller {
 
 	public function postLogin()
 	{
-		return Request::all();
+		// return Request::all();
+		if (Auth::attempt(['email'=>Request::input('email'),'password'=>Request::input('password')],Request::input('rememberMe'))) {
+			return redirect()->route('user.show',Auth::user()->username);
+		} else {
+			return "Username or password not valid";
+		}
+	}
+
+	public function getSetting($username)
+	{
+		return "Settings for {$username}";
 	}
 }

@@ -1,0 +1,16 @@
+header{
+	height: 450px;
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	margin-top:-10px;
+	background-position: center center;
+}
+img.profilePict{
+	max-width: 170px;
+	border-radius: 50%;
+	margin-top:-90px;
+	border:solid white 4px;
+}
