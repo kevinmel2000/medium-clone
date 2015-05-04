@@ -12,3 +12,8 @@
 */
 
 Route::get('/', 'WelcomeController@index');
+get('login',['as'=>'user.login','uses'=>'UserController@getLogin']);
+post('login',['as'=>'user.postLogin','uses'=>'UserController@postLogin']);
+Route::group(['middleware'=>'auth'],function(){
+	Route::resource('user','UserController');
+});
