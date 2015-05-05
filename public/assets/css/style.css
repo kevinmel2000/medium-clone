@@ -1,9 +1,37 @@
 body{
 	padding-top:50px;
+	color: #6B6B6B;
 }
 img{
 	max-width: 100%;
 }
 #crop{
 	max-width: 300px;
+}
+article.userProfile>.head>img.pictStory{
+	width: 43px;
+	border-radius: 50%;
+	float:left;
+	margin-right: 10px;
+}
+article.userProfile{
+	margin-bottom: 50px;
+	padding-bottom: 50px;
+	border-bottom: solid whitesmoke 2px;
+}
+span.name{
+	/*font-size: 20px;*/
+}
+.user-info {
+  margin-bottom: 80px;
+  border-bottom: solid rgb(250, 250, 250) 2px;
+  padding-bottom: 40px;
+}
+span.time {
+  font-size: small;
+  color: rgb(0, 140, 186);
+}
+a.article,a.article:hover,a.article:focus,a.article:active {
+  color: rgb(90, 90, 90);
+  text-decoration: none;
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Story;
 use App\User;
 use Auth;
 use Redirect;
@@ -47,7 +48,7 @@ class UserController extends Controller {
 	 */
 	public function show($username)
 	{
-		$user = User::where('username',$username)->first();
+		$user = User::where('username',$username)->with('stories')->first();
 		return view('user.show')->withUser($user);
 	}
 
@@ -102,5 +103,29 @@ class UserController extends Controller {
 	public function getSetting($username)
 	{
 		return "Settings for {$username}";
+	}
+
+	public function story($username,$slug)
+	{
+		$story = Story::where('slug',$slug)->with('user')->first();
+		return view('story.view')->withStory($story);
+	}
+
+	public function newStory()
+	{
+		return view('story.new');
+	}
+
+	public function storeStory()
+	{
+		$story = new Story;
+		$slug = str_replace(' ', '-',strtolower(Request::input('title'))) . '-' . time();
+		$story->title = Request::input('title');
+		$story->slug = $slug;
+		$story->content = Request::input('content');
+		$story->user_id = Auth::user()->id;
+		$story->save();
+
+		return redirect()->route('home');
 	}
 }

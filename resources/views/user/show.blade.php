@@ -24,12 +24,36 @@
 				@endif
 				<h1>{{ucwords($user->name)}}</h1>
 				<p class="quotes">{{$user->quotes}}</p>
-				<button class="btn btn-primary edit-pictures" data-toggle="modal" data-target="#myModal">Edit</button>
 			</div>
 		</div>
+
+		<section class="story">
+			<div class="row col-md-6 col-md-offset-3">
+				@foreach($user->stories as $post)
+					<a class="article" href="{{ $user->username . '/' . $post->slug }}">
+					<article class="userProfile">
+						<div class="head">
+							@if($user->profilePict == "")
+								<img class="pictStory" src="{{URL::Route('home')}}/images/pict-default.jpg" alt="{{$user->name}}">
+							@else
+								<img class="pictStory" src="{{URL::Route('home')}}/images/{{$user->proflePict}}" alt="{{$user->name}}">
+							@endif
+							<span class="name">{{ ucwords($user->name) }}</span>
+							<br>
+							<span class="time">3 Hours ago</span>
+						</div>
+						<h2>{{ $post->title }}</h2>
+						<div class="body">
+							{!! $post->content !!}
+						</div>
+					</article>
+					</a>
+				@endforeach
+			</div>
+		</section>
 	</div>
 @stop
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -52,4 +76,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}
