@@ -40,7 +40,7 @@
 							@endif
 							<span class="name">{{ ucwords($user->name) }}</span>
 							<br>
-							<span class="time">3 Hours ago</span>
+							<span class="time">{{$post->created_at->diffForHumans()}}</span>
 						</div>
 						<h2>{{ $post->title }}</h2>
 						<div class="body">
