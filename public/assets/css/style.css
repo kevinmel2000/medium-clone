@@ -1,7 +1,14 @@
+*{
+	color:#6C6C6C;
+}
 body{
 	padding-top:50px;
 	color: #6B6B6B;
+	font-weight: 200;
 	background-color: #fff;
+}
+.form-control{
+	border-radius:0px;
 }
 img{
 	max-width: 100%;
@@ -10,7 +17,7 @@ img{
 	max-width: 300px;
 }
 article.userProfile>.head>img.pictStory{
-	width: 43px;
+	width: 55px;
 	border-radius: 50%;
 	float:left;
 	margin-right: 10px;
@@ -22,6 +29,9 @@ article.userProfile{
 }
 article{
 	font-size: 20px;
+	margin-bottom: 50px;
+	border-bottom: solid rgba(0, 0, 0, 0.1) 1px;
+	padding-bottom: 26px;
 }
 .user-info {
   margin-bottom: 80px;
@@ -35,4 +45,14 @@ span.time {
 a.article,a.article:hover,a.article:focus,a.article:active {
   color: rgb(90, 90, 90);
   text-decoration: none;
+}
+img.profilePicture {
+	width: 35px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+p.name {
+	font-size: 24px;
+	text-transform: capitalize;
+	color: rgb(78, 93, 108);
 }

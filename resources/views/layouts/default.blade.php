@@ -18,14 +18,14 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a href="" class="navbar-brand">MediumClone</a>
+				<a href="{{URL::Route('home')}}" class="navbar-brand">MediumClone</a>
 			</div>
 
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="">HOME</a></li>
-					<li><a href="">TOP STORIES</a></li>
-					<li><a href="">BOOKMARKS</a></li>
+					<li><a href="{{URL::Route('home')}}">HOME</a></li>
+					{{-- <li><a href="">TOP STORIES</a></li>
+					<li><a href="">BOOKMARKS</a></li> --}}
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">

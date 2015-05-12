@@ -10,6 +10,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
+				<div class="page-header">
+					<h1>New Story</h1>
+				</div>
 				{!! Form::open(['route','user.storeStory']) !!}
 				{!! Form::text('title','',['class'=>'form-control input-lg','placeholder'=>'TITLE']) !!}
 				{!! Form::textarea('content','',['class'=>'summernote']) !!}
