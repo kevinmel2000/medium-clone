@@ -12,14 +12,7 @@
 						<a class="article" href="{{URL::Route('home')}}/user/{{ $story->user->username . '/' . $story->slug }}">
 						<article>
 							<h2>{{$story->title}}</h2>
-							<div class="user-information">
-								@if($story->user->profilePicture == "")
-									<img src="{{URL::Route('home')}}/images/pict-default.jpg" alt="" class="pull-left profilePicture">
-								@else
-									<img src="{{URL::Route('home')}}/images/{{$story->user->profilePict}}" alt="" class="pull-left profilePicture">
-								@endif
-								<p class="name">{{$story->user->name}} <span class="time">{{$story->created_at->diffForHumans()}}</span></p>
-							</div>
+							<small><a href="{{URL::Route('home')}}/user/{{ $story->user->username }}">{{ '@' . $story->user->username }}</a> | {{$story->created_at->diffForHumans()}}</small>
 							<div class="body">
 								{!! substr($story->content,0,200) !!} ...
 							</div>
@@ -30,6 +23,4 @@
 			</div>
 		</div>
 	</div>
-
-
 @stop

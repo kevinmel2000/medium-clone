@@ -32,19 +32,10 @@
 				@foreach($user->stories as $post)
 					<a class="article" href="{{ $user->username . '/' . $post->slug }}">
 					<article class="userProfile">
-						<div class="head">
-							@if($user->profilePict == "")
-								<img class="pictStory" src="{{URL::Route('home')}}/images/pict-default.jpg" alt="{{$user->name}}">
-							@else
-								<img class="pictStory" src="{{URL::Route('home')}}/images/{{$user->proflePict}}" alt="{{$user->name}}">
-							@endif
-							<span class="name">{{ ucwords($user->name) }}</span>
-							<br>
-							<span class="time">{{$post->created_at->diffForHumans()}}</span>
-						</div>
 						<h2>{{ $post->title }}</h2>
+						<small class="name">{{$post->created_at->diffForHumans()}}</small>
 						<div class="body">
-							{!! substr($post->content,0,200) !!} ...
+							{!! substr($post->content,0,400) !!} ...
 						</div>
 					</article>
 					</a>
@@ -53,27 +44,3 @@
 		</section>
 	</div>
 @stop
-{{-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body text-center">
-      	<form action="">
-      		<input type="file" name="pict" id="browsePict">
-      	</form>
-        @if($user->profilePict == "")
-			<img id="crop" src="{{URL::Route('home')}}/images/pict-default.jpg" alt="{{$user->name}}">
-		@else
-			<img id="crop" src="{{URL::Route('home')}}/images/{{$user->proflePict}}" alt="{{$user->name}}">
-		@endif
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div> --}}

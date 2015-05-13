@@ -8,7 +8,13 @@
 	{!! HTML::script('lib/bootstrap/dist/js/bootstrap.min.js') !!}
 	{!! HTML::script('assets/highlight/highlight.pack.js') !!}
 	{!! HTML::style('assets/highlight/styles/monokai.css') !!}
-	<script>hljs.initHighlightingOnLoad();</script>
+	<script>
+		$(document).ready(function() {
+		  $('pre').each(function(i, block) {
+		    hljs.highlightBlock(block);
+		  });
+		});
+	</script>
 	@yield('head')
 	<title>@yield('title')</title>
 </head>
