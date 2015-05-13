@@ -11,4 +11,9 @@ class Story extends Model {
 		return $this->belongsTo('App\User');
 	}
 
+	public function trackers()
+	{
+		return $this->hasMany('App\Trackers');
+	}
+
 }
