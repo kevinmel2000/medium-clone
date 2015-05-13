@@ -15,6 +15,7 @@ class CreateTrackersTable extends Migration {
 		Schema::create('trackers', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('story_id')->unsigned();
 			$table->string('ip');
 			$table->string('country');
 			$table->string('device');
