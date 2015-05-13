@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta property="og:title" content="@yield('title')">
+	<meta name="title" content="@yield('title')">
 	{!! HTML::style('lib/bootstrap/dist/css/bootstrap.min.css') !!}
 	{!! HTML::style('assets/css/style.css') !!}
 	{!! HTML::script('lib/jquery/dist/jquery.min.js') !!}
@@ -19,6 +21,23 @@
 	<title>@yield('title')</title>
 </head>
 <body>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : 'your key',
+      xfbml      : true,
+      version    : 'v2.3'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">

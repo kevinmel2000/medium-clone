@@ -3,6 +3,8 @@
 Route::get('/',['as'=>'home','uses'=>'HomeController@index']);
 get('login',['as'=>'user.login','uses'=>'UserController@getLogin']);
 post('login',['as'=>'user.postLogin','uses'=>'UserController@postLogin']);
+get('register',['as'=>'user.register','uses'=>'UserController@getRegister']);
+post('register',['as'=>'user.postRegister','uses'=>'UserController@postRegister']);
 Route::resource('user','UserController');
 get('user/{username}/{slug}',['as'=>'user.story','uses'=>'UserController@story']);
 

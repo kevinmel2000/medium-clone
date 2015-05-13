@@ -134,4 +134,20 @@ class UserController extends Controller {
 		Auth::logout();
 		return Redirect()->route('user.login');
 	}
+
+	public function getRegister()
+	{
+		return view('user.register');
+	}
+
+	public function postRegister()
+	{
+		$user = new User;
+		$user->username = Request::input('username');
+		$user->email = Request::input('email');
+		$user->name = Request::input('name');
+		$user->password = Hash::make(Request::input('password'));
+		$user->save();
+		return redirect()->route('user.login');
+	}
 }
