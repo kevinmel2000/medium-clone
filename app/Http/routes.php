@@ -1,11 +1,5 @@
 <?php
 
-use App\Story;
-
-get('api/story',function(){
-	return Story::all();
-});
-
 Route::get('/',['as'=>'home','uses'=>'HomeController@index']);
 get('login',['as'=>'user.login','uses'=>'UserController@getLogin']);
 post('login',['as'=>'user.postLogin','uses'=>'UserController@postLogin']);
