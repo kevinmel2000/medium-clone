@@ -6,6 +6,9 @@
 	{!! HTML::style('assets/css/style.css') !!}
 	{!! HTML::script('lib/jquery/dist/jquery.min.js') !!}
 	{!! HTML::script('lib/bootstrap/dist/js/bootstrap.min.js') !!}
+	{!! HTML::script('assets/highlight/highlight.pack.js') !!}
+	{!! HTML::style('assets/highlight/styles/monokai.css') !!}
+	<script>hljs.initHighlightingOnLoad();</script>
 	@yield('head')
 	<title>@yield('title')</title>
 </head>
@@ -37,7 +40,7 @@
 								<li><a href="{{URL::Route('user.show',Auth::user()->username)}}">Profile</a></li>
 								<li><a href="{{URL::Route('user.setting',Auth::user()->username)}}">Settings</a></li>
 								<li class="divider"></li>
-								<li><a href="#">Logout</a></li>
+								<li><a href="{{ URL::Route('logout') }}">Logout</a></li>
 							</ul>
 						</li>
 					@else

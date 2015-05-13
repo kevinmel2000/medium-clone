@@ -12,6 +12,7 @@ post('login',['as'=>'user.postLogin','uses'=>'UserController@postLogin']);
 get('user/{username}/{slug}',['as'=>'user.story','uses'=>'UserController@story']);
 
 Route::group(['middleware'=>'auth'],function(){
+	Route::get('logout',['as'=>'logout','uses'=>'UserController@logout']);
 	Route::resource('user','UserController');
 	Route::get('user/{username}/settings',['as'=>'user.setting','uses'=>'UserController@getSetting']);
 	get('p/new-post',['as'=>'user.newStory','uses'=>'UserController@newStory']);
