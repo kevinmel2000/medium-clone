@@ -105,12 +105,6 @@ class UserController extends Controller {
 		return "Settings for {$username}";
 	}
 
-	public function story($username,$slug)
-	{
-		$story = Story::where('slug',$slug)->with('user')->first();
-		return view('story.view')->withStory($story);
-	}
-
 	public function newStory()
 	{
 		return view('story.new');

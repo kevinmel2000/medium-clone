@@ -30,7 +30,7 @@
 		<section class="story">
 			<div class="row col-md-6 col-md-offset-3">
 				@foreach($user->stories as $post)
-					<a class="article" href="{{ $user->username . '/' . $post->slug }}">
+					<a class="article" href="{{ URL::Route('story.show',$post->slug) }}">
 					<article class="userProfile">
 						<h2>{{ $post->title }}</h2>
 						<small class="name">{{$post->created_at->diffForHumans()}}</small>
