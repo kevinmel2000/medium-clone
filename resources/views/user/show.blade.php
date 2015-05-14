@@ -37,6 +37,16 @@
 						<div class="body">
 							{!! substr($post->content,0,400) !!} ...
 						</div>
+
+						@if (Auth::check() && Auth::user()->username == $post->user->username)
+							<br>
+							{!! Form::open(['route'=>['story.destroy',$post->id],'method'=>'delete']) !!}
+								<button class="btn btn-danger">Delete</button>
+							{!! Form::close() !!}
+							{!! Form::open(['route'=>['story.edit',$post->id],'method'=>'get']) !!}
+								<button class="btn btn-warning">Edit</button>
+							{!! Form::close() !!}
+						@endif
 					</article>
 					</a>
 				@endforeach

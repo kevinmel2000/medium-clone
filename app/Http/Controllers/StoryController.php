@@ -16,7 +16,7 @@ class StoryController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		return redirect()->Route('home');
 	}
 
 	/**
@@ -67,7 +67,12 @@ class StoryController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$story = Story::where('id',$id)->with('user')->first();
+		if (Auth::user()->username == $story->user->username){
+			return view('story.edit')->withStory($story);
+		}else{
+			return redirect()->back();
+		}
 	}
 
 	/**
@@ -78,7 +83,12 @@ class StoryController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+		$story = Story::find($id);
+		$story->title = Request::input('title');
+		$story->content = Request::input('content');
+		$story->save();
+
+		return redirect()->route('home');
 	}
 
 	/**
@@ -89,7 +99,13 @@ class StoryController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$story = Story::where('id',$id)->with('user')->first();
+		if ( Auth::check() && $story->user->username == Auth::user()->username ){
+			$story->delete();
+			return redirect()->back();
+		}else{
+			return redirect()->back();
+		}
 	}
 
 }
