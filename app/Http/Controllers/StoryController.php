@@ -3,8 +3,9 @@
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Story;
-use Request;
 use Auth;
+use Illuminate\Support\Str;
+use Request;
 
 class StoryController extends Controller {
 
@@ -36,7 +37,7 @@ class StoryController extends Controller {
 	public function store()
 	{
 		$story = new Story;
-		$slug = str_replace(' ', '-',strtolower(Request::input('title'))) . '-' . time();
+		$slug = Str::slug(Request::input('title'));
 		$story->title = Request::input('title');
 		$story->slug = $slug;
 		$story->content = Request::input('content');
