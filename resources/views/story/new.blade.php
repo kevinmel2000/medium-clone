@@ -13,7 +13,7 @@
 				<div class="page-header">
 					<h1>New Story</h1>
 				</div>
-				{!! Form::open(['route','user.storeStory']) !!}
+				{!! Form::open(['route','story.store']) !!}
 				{!! Form::text('title','',['class'=>'form-control input-lg','placeholder'=>'TITLE']) !!}
 				{!! Form::textarea('content','',['class'=>'summernote']) !!}
 				{!! Form::submit('Publish',['class'=>'btn btn-primary btn-block']) !!}

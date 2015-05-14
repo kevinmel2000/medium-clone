@@ -105,24 +105,6 @@ class UserController extends Controller {
 		return "Settings for {$username}";
 	}
 
-	public function newStory()
-	{
-		return view('story.new');
-	}
-
-	public function storeStory()
-	{
-		$story = new Story;
-		$slug = str_replace(' ', '-',strtolower(Request::input('title'))) . '-' . time();
-		$story->title = Request::input('title');
-		$story->slug = $slug;
-		$story->content = Request::input('content');
-		$story->user_id = Auth::user()->id;
-		$story->save();
-
-		return redirect()->route('home');
-	}
-
 	public function logout()
 	{
 		Auth::logout();

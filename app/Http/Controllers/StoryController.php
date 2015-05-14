@@ -3,7 +3,8 @@
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Story;
-use Illuminate\Http\Request;
+use Request;
+use Auth;
 
 class StoryController extends Controller {
 
@@ -24,7 +25,7 @@ class StoryController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return View('story.new');
 	}
 
 	/**
@@ -34,7 +35,15 @@ class StoryController extends Controller {
 	 */
 	public function store()
 	{
-		//
+		$story = new Story;
+		$slug = str_replace(' ', '-',strtolower(Request::input('title'))) . '-' . time();
+		$story->title = Request::input('title');
+		$story->slug = $slug;
+		$story->content = Request::input('content');
+		$story->user_id = Auth::user()->id;
+		$story->save();
+
+		return redirect()->route('home');
 	}
 
 	/**
