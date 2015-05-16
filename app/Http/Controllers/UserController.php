@@ -5,6 +5,7 @@ use App\Http\Requests;
 use App\Story;
 use App\User;
 use Auth;
+use Hash;
 use Redirect;
 use Request;
 

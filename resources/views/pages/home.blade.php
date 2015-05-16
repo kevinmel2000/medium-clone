@@ -23,5 +23,9 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="text-center">
+			{!! $stories->render() !!}
+		</div>
 	</div>
 @stop
