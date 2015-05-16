@@ -48,7 +48,11 @@ class UserController extends Controller {
 	 */
 	public function show($username)
 	{
-		$user = User::where('username',$username)->with('stories')->first();
+		$user = User::where('username',$username)
+		->with(['stories'=>function($query){
+			$query->orderBy('created_at','desc')->paginate(10);
+		}])->first();
+		
 		return view('user.show')->withUser($user);
 	}
 

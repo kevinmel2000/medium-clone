@@ -7,6 +7,9 @@ body{
 	font-weight: 200;
 	background-color: #fff;
 }
+p{
+	margin:0px 0px 25px;
+}
 .form-control{
 	border-radius:0px;
 }

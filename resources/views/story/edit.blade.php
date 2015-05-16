@@ -13,7 +13,7 @@
 				<div class="page-header">
 					<h1>Edit Story</h1>
 				</div>
-				{!! Form::open(['route','story.update']) !!}
+				{!! Form::open(['route'=>['story.update',$story->id],'method'=>'put']) !!}
 				{!! Form::text('title',$story->title,['class'=>'form-control input-lg','placeholder'=>'TITLE']) !!}
 				{!! Form::textarea('content',$story->content,['class'=>'summernote']) !!}
 				{!! Form::submit('Publish',['class'=>'btn btn-primary btn-block']) !!}
