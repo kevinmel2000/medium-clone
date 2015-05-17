@@ -128,6 +128,7 @@ class UserController extends Controller {
 		$user->email = Request::input('email');
 		$user->name = Request::input('name');
 		$user->password = Hash::make(Request::input('password'));
+		$user->quotes = "Jangan sampai lupa bahagia !";
 		$user->save();
 		Auth::loginUsingId($user->id,true);
 		return redirect()->route('home');

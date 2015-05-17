@@ -59,3 +59,6 @@ p.name {
 	text-transform: capitalize;
 	color: rgb(78, 93, 108);
 }
+p.quotes {
+  font-size: 18px;
+}
