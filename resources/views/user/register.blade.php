@@ -14,15 +14,15 @@
 				{!! Form::open(['route'=>'user.postRegister']) !!}
 				<div class="form-group">
 					<label for="username">Username</label>
-					{!! Form::text('username','',['class'=>'form-control','required','placeholder'=>'ex : adeyahya','required']) !!}
+					{!! Form::text('username','',['class'=>'form-control','required','placeholder'=>'ex : tonystark','required']) !!}
 				</div>
 				<div class="form-group">
 					<label for="name">Name</label>
-					{!! Form::text('name','',['class'=>'form-control','required','placeholder'=>'ex : Ade Yahya Prasetyo','required']) !!}
+					{!! Form::text('name','',['class'=>'form-control','required','placeholder'=>'ex : Tony Stark','required']) !!}
 				</div>
 				<div class="form-group">
 					<label for="email">Email</label>
-					{!! Form::email('email','',['class'=>'form-control','required','placeholder'=>'ex : user@domain.com']) !!}
+					{!! Form::email('email','',['class'=>'form-control','required','placeholder'=>'ex : someone@domain.com']) !!}
 				</div>
 				<div class="form-group">
 					<label for="password">Password</label>
@@ -30,6 +30,8 @@
 				</div>
 				{!! Form::submit('Register',['class'=>'btn btn-primary btn-block']) !!}
 				{!! Form::close() !!}
+				<br>
+				<b><a href="{{ URL::Route('user.login') }}">Already have account ?</a></b>
 			</div>
 		</div>
 	</div>

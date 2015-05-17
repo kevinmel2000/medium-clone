@@ -14,7 +14,7 @@
 				{!! Form::open(['route'=>'user.postLogin']) !!}
 				<div class="form-group">
 					<label for="email">Email</label>
-					{!! Form::email('email','',['class'=>'form-control','required','placeholder'=>'ex : user@domain.com']) !!}
+					{!! Form::email('email','',['class'=>'form-control','required','placeholder'=>'ex : someone@domain.com']) !!}
 				</div>
 				<div class="form-group">
 					<label for="password">Password</label>
@@ -27,6 +27,8 @@
 				</div>
 				{!! Form::submit('Log In',['class'=>'btn btn-primary btn-block']) !!}
 				{!! Form::close() !!}
+				<br>
+				<b><a href="{{ URL::Route('user.register') }}">Don't have account yet ?</a></b>
 			</div>
 		</div>
 	</div>
