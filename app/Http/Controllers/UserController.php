@@ -129,6 +129,7 @@ class UserController extends Controller {
 		$user->name = Request::input('name');
 		$user->password = Hash::make(Request::input('password'));
 		$user->save();
-		return redirect()->route('user.login');
+		Auth::loginUsingId($user->id,true);
+		return redirect()->route('home');
 	}
 }
