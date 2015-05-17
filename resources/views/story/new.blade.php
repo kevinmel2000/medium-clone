@@ -2,6 +2,7 @@
 @section('head')
 	{!! HTML::style('lib/font-awesome/css/font-awesome.min.css') !!}
 	{!! HTML::style('lib/summernote/dist/summernote.css') !!}
+	{!! HTML::style('assets/css/wysiwyg.css') !!}
 	{!! HTML::script('lib/summernote/dist/summernote.min.js') !!}
 	{!! HTML::script('assets/js/_newStory.js') !!}
 @stop
