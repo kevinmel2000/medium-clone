@@ -37,7 +37,7 @@ class StoryController extends Controller {
 	public function store()
 	{
 		$story = new Story;
-		$slug = Str::slug(Request::input('title'));
+		$slug = Str::slug(Request::input('title')) . "-" . time();
 		$story->title = Request::input('title');
 		$story->slug = $slug;
 		$story->content = Request::input('content');
