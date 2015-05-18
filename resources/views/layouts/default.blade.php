@@ -26,7 +26,7 @@
 <script>
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : 'your key',
+      appId      : '1527090690898815',
       xfbml      : true,
       version    : 'v2.3'
     });
@@ -40,6 +40,15 @@
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=1527090690898815";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -71,12 +80,48 @@
 							</ul>
 						</li>
 					@else
-						<li><a href="{{URL::Route('user.login')}}">Login</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
 					@endif
 				</ul>
 			</div>
 		</div>
 	</nav>
 	@yield('content')
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="page-header text-center">
+        	<h2>Medium Clone</h2>
+        	<p>Login and create awesome story.</p>
+        </div>
+        	<a href="{{ URL::Route('home') }}/socialize/facebook" class="btn btn-primary btn-block">Login with Facebook</a>
+			<hr>
+			{{--
+			{!! Form::open(['route'=>'user.postLogin']) !!}
+				<div class="form-group">
+					<label for="email">Email</label>
+					{!! Form::email('email','',['class'=>'form-control','required','placeholder'=>'ex : someone@domain.com']) !!}
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label>
+					{!! Form::password('password',['class'=>'form-control','required']) !!}
+				</div>
+				<div class="checkout">
+					<label for="rememberMe">
+						<input type="checkbox" name="rememberMe" checked="true"> Remember Me ?
+					</label>
+				</div>
+				{!! Form::submit('Log In',['class'=>'btn btn-warning btn-block']) !!}
+			{!! Form::close() !!}
+			<br>
+			<b><a href="{{ URL::Route('user.register') }}">Don't have account yet ?</a></b>
+			--}}
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

@@ -34,5 +34,10 @@ return [
 		'key' => '',
 		'secret' => '',
 	],
+	'facebook' => [
+		'client_id' => '',
+		'client_secret' => '',
+		'redirect' => 'http://blog.adeh.in/socialize/facebookaction',
+	],
 
 ];

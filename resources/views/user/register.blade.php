@@ -11,6 +11,9 @@
 					<h1>MediumClone</h1>
 					<p>Register and create awesome story.</p>
 				</div>
+				<a href="{{ URL::Route('home') }}/socialize/facebook" class="btn btn-primary btn-block">Register with Facebook</a>
+				<hr>
+				{{--
 				{!! Form::open(['route'=>'user.postRegister']) !!}
 				<div class="form-group">
 					<label for="username">Username</label>
@@ -28,10 +31,11 @@
 					<label for="password">Password</label>
 					{!! Form::password('password',['class'=>'form-control','required']) !!}
 				</div>
-				{!! Form::submit('Register',['class'=>'btn btn-primary btn-block']) !!}
+				{!! Form::submit('Register',['class'=>'btn btn-warning btn-block']) !!}
 				{!! Form::close() !!}
 				<br>
 				<b><a href="{{ URL::Route('user.login') }}">Already have account ?</a></b>
+				--}}
 			</div>
 		</div>
 	</div>

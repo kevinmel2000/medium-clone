@@ -11,6 +11,9 @@
 					<h1>MediumClone</h1>
 					<p>Login and create awesome story.</p>
 				</div>
+				<a href="{{ URL::Route('home') }}/socialize/facebook" class="btn btn-primary btn-block">Login with Facebook</a>
+				<hr>
+				{{--
 				{!! Form::open(['route'=>'user.postLogin']) !!}
 				<div class="form-group">
 					<label for="email">Email</label>
@@ -25,10 +28,11 @@
 						<input type="checkbox" name="rememberMe" checked="true"> Remember Me ?
 					</label>
 				</div>
-				{!! Form::submit('Log In',['class'=>'btn btn-primary btn-block']) !!}
+				{!! Form::submit('Log In',['class'=>'btn btn-warning btn-block']) !!}
 				{!! Form::close() !!}
 				<br>
 				<b><a href="{{ URL::Route('user.register') }}">Don't have account yet ?</a></b>
+				--}}
 			</div>
 		</div>
 	</div>

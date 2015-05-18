@@ -17,10 +17,10 @@
 	<div class="container">
 		<div class="user-info text-center">
 			<div class="profilePict">
-				@if($user->profilePict == "")
+				@if($user->profilePicture == "")
 					<img class="profilePict" src="{{URL::Route('home')}}/images/pict-default.png" alt="{{$user->name}}">
 				@else
-					<img class="profilePict" src="{{URL::Route('home')}}/images/{{$user->proflePict}}" alt="{{$user->name}}">
+					<img class="profilePict" src="{{URL::Route('home')}}/images/{{$user->profilePicture}}" alt="{{$user->name}}">
 				@endif
 				<h1>{{ucwords($user->name)}}</h1>
 				<p class="quotes">{{$user->quotes}}</p>
@@ -35,7 +35,10 @@
 						<h2>{{ $post->title }}</h2>
 						<small class="name">{{$post->created_at->diffForHumans()}}</small>
 						<div class="body">
-							{!! substr($post->content,0,400) !!} ...
+							@if (preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->content, $image))
+								<img src="{{ $image[1][0] }}" alt="{{ $post->title }}">
+							@endif
+							{!! strip_tags(substr(preg_replace('#<img([^>]*) src="([^"/]*/?[^".]*\.[^"]*)"([^>]*)>((?!</a>))#', '', $post->content),0,200)) !!} ...
 							@if (Auth::check() && Auth::user()->username == $post->user->username)
 								<br>
 								<br>

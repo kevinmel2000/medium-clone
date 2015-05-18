@@ -107,7 +107,8 @@ class UserController extends Controller {
 
 	public function getSetting($username)
 	{
-		return "Settings for {$username}";
+		$user = User::where('username',$username)->first();
+		return view('user.setting')->withUser($user);
 	}
 
 	public function logout()
