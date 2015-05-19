@@ -5,6 +5,7 @@ use App\Http\Requests;
 use App\Story;
 use Auth;
 use Illuminate\Support\Str;
+use Xss;
 use Request;
 
 class StoryController extends Controller {
@@ -40,7 +41,7 @@ class StoryController extends Controller {
 		$slug = Str::slug(Request::input('title')) . "-" . time();
 		$story->title = Request::input('title');
 		$story->slug = $slug;
-		$story->content = Request::input('content');
+		$story->content = Xss::clean(Request::input('content'));
 		$story->user_id = Auth::user()->id;
 		$story->save();
 
@@ -85,7 +86,7 @@ class StoryController extends Controller {
 	{
 		$story = Story::find($id);
 		$story->title = Request::input('title');
-		$story->content = Request::input('content');
+		$story->content = Xss::clean(Request::input('content'));
 		$story->save();
 
 		return redirect()->route('home');
