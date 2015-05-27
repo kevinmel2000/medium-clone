@@ -92,7 +92,7 @@
 					@if(Auth::check())
 						@if( App\Notification::where('user_id',Auth::user()->id)->where('read',0)->count() > 0)
 							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-bell redColor"></i></a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-bell redColor"></i> <span class="badge">{{ App\Notification::where('user_id',Auth::user()->id)->where('read',0)->count() }}</span></a>
 								<ul class="dropdown-menu" role="menu">
 									@foreach( App\Notification::where('user_id',Auth::user()->id)->where('read',0)->orderBy('created_at','desc')->get() as $item)
 										<li><a href="{{ URL::Route('home') }}/story/{{ $item->link }}"> <i class="fa fa-comment-o"></i> {{$item->message}} </a></li>

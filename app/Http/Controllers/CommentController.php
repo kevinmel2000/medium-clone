@@ -1,5 +1,4 @@
 <?php namespace App\Http\Controllers;
-
 use App\Comment;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
@@ -9,9 +8,7 @@ use App\User;
 use Illuminate\Support\Facades\URL;
 use Piss;
 use Request;
-
 class CommentController extends Controller {
-
 	public function getComments($storyid)
 	{
 		$comments = Comment::where('story_id',$storyid)->with('user')->get();
@@ -25,7 +22,6 @@ class CommentController extends Controller {
 		$comment->story_id = Request::input('story_id');
 		$comment->content = Request::input('content');
 		$comment->save();
-
 		$comments = Comment::where('story_id',$comment->story_id)->groupBy('user_id')->get();
 		foreach($comments as $item){
 			if($comment->user_id != $item->user_id){

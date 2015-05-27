@@ -58,6 +58,7 @@ class StoryController extends Controller {
 			$story->slug = $slug;
 			$story->content = Xss::clean(Request::input('content'));
 			$story->user_id = Auth::user()->id;
+			$story->commenter = "";
 			$story->save();
 
 			return redirect()->route('story.show',$story->slug);

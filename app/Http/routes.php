@@ -1,9 +1,4 @@
 <?php
-
-Route::get('mimin',function(){
-	Auth::loginUsingId(4);
-});
-
 Route::post('api/checkusername','UserController@check');
 Route::post('api/flashmessage','HomeController@flash');
 Route::get('/',['as'=>'home','uses'=>'HomeController@index']);
