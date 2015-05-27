@@ -131,3 +131,6 @@ ul.list-comment>li{
 .redColor{
 	color: rgb(223, 75, 75);
 }
+div.comments {
+  margin-bottom: 40px;
+}
