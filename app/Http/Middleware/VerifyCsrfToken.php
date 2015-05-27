@@ -14,9 +14,9 @@ class VerifyCsrfToken extends BaseVerifier {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if($request->method() == 'GET')
+		if(strpos($request->getRequestUri(), 'api') >= 0)
         {
-	        return $next($request);
+            return $next($request);
         }
 		return parent::handle($request, $next);
 	}

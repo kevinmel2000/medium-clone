@@ -7,11 +7,17 @@
 	<meta property="og:title" content="@yield('title')">
 	<meta name="title" content="@yield('title')">
 	{!! HTML::style('lib/bootstrap/dist/css/bootstrap.min.css') !!}
+	{!! HTML::style('lib/font-awesome/css/font-awesome.min.css') !!}
 	{!! HTML::style('assets/css/style.css') !!}
 	{!! HTML::script('lib/jquery/dist/jquery.min.js') !!}
+	{!! HTML::script('lib/toastr/toastr.min.js') !!}
 	{!! HTML::script('lib/bootstrap/dist/js/bootstrap.min.js') !!}
 	{!! HTML::script('assets/highlight/highlight.pack.js') !!}
 	{!! HTML::style('assets/highlight/styles/monokai.css') !!}
+	{!! HTML::style('lib/toastr/toastr.min.css') !!}
+	{!! HTML::script('//js.pusher.com/2.2/pusher.min.js') !!}
+	{!! HTML::script('lib/angular/angular.min.js') !!}
+	{!! HTML::script('assets/js/core-ang.js') !!}
 	<script>
 		$(document).ready(function() {
 		  $('pre').each(function(i, block) {
@@ -19,10 +25,23 @@
 		  });
 		});
 	</script>
+	@if(Auth::check())
+		<script>
+			var pusher = new Pusher('f7c64c5b8411649b6090');
+			var channel = pusher.subscribe("{{ Auth::user()->id }}");
+			channel.bind('my_event', function(data) {
+			toastr.info(data.message,"Notifikasi",{onclick: function(){ window.location = "{{ URL::Route('home') }}" + "/story/" + data.link }} );
+		  	$('<audio src="{{ URL::Route('home') }}/notif.mp3" autoplay></audio>').appendTo('body');
+			});
+		</script>
+	@endif
 	@yield('head')
 	<title>@yield('title')</title>
 </head>
-<body>
+<body ng-app="medium">
+@if(Auth::check())
+	<input type="hidden" id="user_id" value="{{ Auth::user()->id }}">
+@endif
 <script>
   window.fbAsyncInit = function() {
     FB.init({
@@ -47,8 +66,9 @@
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=1527090690898815";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
+}(document, 'script', 'facebook-jssdk'));
+</script>
+	<audio src="/notif.mp3" id="notifSound"></audio>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -62,19 +82,39 @@
 
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="{{URL::Route('home')}}">HOME</a></li>
+					<li><a href="{{URL::Route('home')}}">Home</a></li>
+					<li><a href="{{URL::Route('series.index')}}">Series</a></li>
 					{{-- <li><a href="">TOP STORIES</a></li>
 					<li><a href="">BOOKMARKS</a></li> --}}
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
 					@if(Auth::check())
+						@if( App\Notification::where('user_id',Auth::user()->id)->where('read',0)->count() > 0)
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-bell redColor"></i></a>
+								<ul class="dropdown-menu" role="menu">
+									@foreach( App\Notification::where('user_id',Auth::user()->id)->where('read',0)->orderBy('created_at','desc')->get() as $item)
+										<li><a href="{{ URL::Route('home') }}/story/{{ $item->link }}"> <i class="fa fa-comment-o"></i> {{$item->message}} </a></li>
+									@endforeach
+								</ul>
+							</li>
+						@else
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-bell"></i></a>
+								<ul class="dropdown-menu" role="menu">
+									<li>Tidak ada notifikasi untuk saat ini</li>
+								</ul>
+							</li>
+						@endif
+
+						<li><a href="{{URL::Route('story.create')}}">New Story</a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ucwords(Auth::user()->name)}} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="{{URL::Route('story.create')}}">New Story</a></li>
 								<li><a href="{{URL::Route('user.show',Auth::user()->username)}}">Profile</a></li>
 								<li><a href="{{URL::Route('user.setting',Auth::user()->username)}}">Settings</a></li>
+								<li><a href="{{URL::Route('series.create')}}">New Series</a></li>
 								<li class="divider"></li>
 								<li><a href="{{ URL::Route('logout') }}">Logout</a></li>
 							</ul>
@@ -98,30 +138,29 @@
         </div>
         	<a href="{{ URL::Route('home') }}/socialize/facebook" class="btn btn-primary btn-block">Login with Facebook</a>
 			<hr>
-			{{--
-			{!! Form::open(['route'=>'user.postLogin']) !!}
-				<div class="form-group">
-					<label for="email">Email</label>
-					{!! Form::email('email','',['class'=>'form-control','required','placeholder'=>'ex : someone@domain.com']) !!}
-				</div>
-				<div class="form-group">
-					<label for="password">Password</label>
-					{!! Form::password('password',['class'=>'form-control','required']) !!}
-				</div>
-				<div class="checkout">
-					<label for="rememberMe">
-						<input type="checkbox" name="rememberMe" checked="true"> Remember Me ?
-					</label>
-				</div>
-				{!! Form::submit('Log In',['class'=>'btn btn-warning btn-block']) !!}
-			{!! Form::close() !!}
-			<br>
-			<b><a href="{{ URL::Route('user.register') }}">Don't have account yet ?</a></b>
-			--}}
       </div>
     </div>
   </div>
 </div>
-
+<script>
+	$(document).ready(function(){
+		toastr.options = {
+		  "closeButton": false,
+		  "debug": false,
+		  "newestOnTop": true,
+		  "progressBar": true,
+		  "positionClass": "toast-top-right",
+		  "preventDuplicates": false,
+		  "showDuration": "300",
+		  "hideDuration": "1000",
+		  "timeOut": "10000",
+		  "extendedTimeOut": "1000",
+		  "showEasing": "swing",
+		  "hideEasing": "linear",
+		  "showMethod": "fadeIn",
+		  "hideMethod": "fadeOut"
+		}
+	});
+</script>
 </body>
 </html>

@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Notification;
+use App\Serie;
 use App\Story;
 use Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Xss;
 use Request;
+use Xss;
 
 class StoryController extends Controller {
 
@@ -27,7 +30,8 @@ class StoryController extends Controller {
 	 */
 	public function create()
 	{
-		return View('story.new');
+		$series = Serie::where('user_id',Auth::user()->id)->get();
+		return View('story.new')->withSeries($series);
 	}
 
 	/**
@@ -37,15 +41,27 @@ class StoryController extends Controller {
 	 */
 	public function store()
 	{
-		$story = new Story;
-		$slug = Str::slug(Request::input('title')) . "-" . time();
-		$story->title = Request::input('title');
-		$story->slug = $slug;
-		$story->content = Xss::clean(Request::input('content'));
-		$story->user_id = Auth::user()->id;
-		$story->save();
+		$bottime = Request::input('bottime');
+		$totaltime = time() - $bottime;
 
-		return redirect()->route('home');
+		if($totaltime < 10){
+			return "disabled !";
+		}else{
+			$story = new Story;
+			if (Request::input('serie') != "none"){
+				$story->serie_id = Request::input('serie');
+			}else{
+				$story->serie_id = 0;
+			}
+			$slug = Str::slug(Request::input('title')) . "-" . time();
+			$story->title = Request::input('title');
+			$story->slug = $slug;
+			$story->content = Xss::clean(Request::input('content'));
+			$story->user_id = Auth::user()->id;
+			$story->save();
+
+			return redirect()->route('story.show',$story->slug);
+		}
 	}
 
 	/**
@@ -56,8 +72,18 @@ class StoryController extends Controller {
 	 */
 	public function show($slug)
 	{
-		$story = Story::where('slug',$slug)->with('user')->first();
-		return view('story.view')->withStory($story);
+		$story = Story::where('slug',$slug)->with('user')->with('comments')->first();
+		$story->bad_count = $story->bad_count + 1;
+		$story->save();
+
+		if ($story->serie_id == 0){
+			$parents = Story::where('user_id',$story->user->id)->orderBy(DB::raw('RAND()'))->take(10)->get();
+			return view('story.view')->withStory($story)->withParents($parents);
+		}else{
+			$parents = Story::where('serie_id',$story->serie_id)->get();
+			$serie = Serie::find($story->serie_id);
+			return view('story.series')->withStory($story)->withParents($parents)->withSerie($serie);
+		}
 	}
 
 	/**
@@ -69,8 +95,9 @@ class StoryController extends Controller {
 	public function edit($id)
 	{
 		$story = Story::where('id',$id)->with('user')->first();
-		if (Auth::user()->username == $story->user->username){
-			return view('story.edit')->withStory($story);
+		$series = Serie::where('user_id',Auth::user()->id)->get();
+		if (Auth::user()->username == $story->user->username || Auth::user()->su == true){
+			return view('story.edit')->withStory($story)->withSeries($series);
 		}else{
 			return redirect()->back();
 		}
@@ -85,11 +112,16 @@ class StoryController extends Controller {
 	public function update($id)
 	{
 		$story = Story::find($id);
+		if (Request::input('serie') != "none"){
+			$story->serie_id = Request::input('serie');
+		}else{
+			$story->serie_id = 0;
+		}
 		$story->title = Request::input('title');
 		$story->content = Xss::clean(Request::input('content'));
 		$story->save();
 
-		return redirect()->route('home');
+		return redirect()->route('story.show',$story->slug);
 	}
 
 	/**
@@ -101,7 +133,7 @@ class StoryController extends Controller {
 	public function destroy($id)
 	{
 		$story = Story::where('id',$id)->with('user')->first();
-		if ( Auth::check() && $story->user->username == Auth::user()->username ){
+		if ( Auth::check() && $story->user->username == Auth::user()->username || Auth::user()->su == true ){
 			$story->delete();
 			return redirect()->back();
 		}else{

@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration {
 			$table->string('profilePicture')->default('');
 			$table->string('profileCover')->default('');
 			$table->string('quotes')->default('');
+			$table->boolean('blocked')->default(0);
+			$table->boolean('su')->default(0);
 			$table->rememberToken();
 			$table->timestamps();
 		});

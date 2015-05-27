@@ -138,6 +138,8 @@ return [
 		'Illuminate\Html\HtmlServiceProvider',
 		'Laravel\Socialite\SocialiteServiceProvider',
 		'Owlgrin\Xss\XssServiceProvider',
+		'Kamaln7\Toastr\ToastrServiceProvider',
+		'Vinkla\Pusher\PusherServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -198,7 +200,9 @@ return [
 		'Form'		=> 'Illuminate\Html\FormFacade', 
 		'HTML'		=> 'Illuminate\Html\HtmlFacade',
 		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
-		'Xss'            => 'Owlgrin\Xss\XssFacade',
+		'Xss'       => 'Owlgrin\Xss\XssFacade',
+		'Toastr' 	=> 'Kamaln7\Toastr\Facades\Toastr',
+		'Piss' 	=> 'Vinkla\Pusher\Facades\Pusher',
 
 	],
 

@@ -28,7 +28,7 @@ class SocializeController extends Controller {
 			$user->name = $fb->getName();
 			$user->username = Str::slug($fb->getName() . time());
 			$user->password = Hash::make('defaultpassword');
-			$avatar = file_get_contents(str_replace("type=normal", "width=500", $fb->getAvatar()));
+			$avatar = file_get_contents(str_replace("type=normal", "width=300&height=300", $fb->getAvatar()));
 			file_put_contents("images/" . Str::slug($fb->getName() . time()) . ".png", $avatar);
 			$user->profilePicture = Str::slug($fb->getName() . time()) . ".png";
 			$user->save();

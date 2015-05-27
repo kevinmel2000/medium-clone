@@ -31,15 +31,17 @@
 			<div class="row col-md-6 col-md-offset-3">
 				@foreach($user->stories as $post)
 					<a class="article" href="{{ URL::Route('story.show',$post->slug) }}">
-					<article class="userProfile">
-						<h2>{{ $post->title }}</h2>
-						<small class="name">{{$post->created_at->diffForHumans()}}</small>
+					<section class="summary">
+						<h2>{{ $post->title }} <small class="name">{{$post->created_at->diffForHumans()}}</small></h2>
+						<br>
 						<div class="body">
 							@if (preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->content, $image))
 								<img src="{{ $image[1][0] }}" alt="{{ $post->title }}">
+								<br>
+								<br>
 							@endif
 							{!! strip_tags(substr(preg_replace('#<img([^>]*) src="([^"/]*/?[^".]*\.[^"]*)"([^>]*)>((?!</a>))#', '', $post->content),0,200)) !!} ...
-							@if (Auth::check() && Auth::user()->username == $post->user->username)
+							@if (Auth::check() && Auth::user()->username == $post->user->username || Auth::check() && Auth::user()->su == true)
 								<br>
 								<br>
 								{!! Form::open(['route'=>['story.destroy',$post->id],'method'=>'delete','style'=>'float:left;margin-right:5px;']) !!}
@@ -50,7 +52,7 @@
 								{!! Form::close() !!}
 							@endif
 						</div>
-					</article>
+					</section>
 					</a>
 				@endforeach
 			</div>

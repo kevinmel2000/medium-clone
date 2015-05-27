@@ -111,6 +111,25 @@ class UserController extends Controller {
 		return view('user.setting')->withUser($user);
 	}
 
+	public function postSetting()
+	{
+		if(!Request::input('username') == "" || !strlen(Request::input('username')) < 3){
+			$user = User::find(Request::input('id'));
+			$user->username = Request::input('username');
+			$user->name = Request::input('name');
+			$user->quotes = Request::input('quotes');
+			$user->save();
+
+			return redirect()->Route('user.show',$user->username);
+		}
+
+		$user = User::find(Request::input('id'));
+		$user->name = Request::input('name');
+		$user->quotes = Request::input('quotes');
+		$user->save();
+		return redirect()->back()->withInput();
+	}
+
 	public function logout()
 	{
 		Auth::logout();
@@ -133,5 +152,19 @@ class UserController extends Controller {
 		$user->save();
 		Auth::loginUsingId($user->id,true);
 		return redirect()->route('home');
+	}
+
+	public function check()
+	{
+		if (strlen(Request::input('username')) > 3){
+			$avaliable = User::where('username',Request::input('username'))->count();
+			if ($avaliable){
+				return array("status"=>0);
+			}else{
+				return array("status"=>1);
+			}
+		}else{
+			return array("status"=>0);
+		}
 	}
 }

@@ -16,6 +16,12 @@
 				{!! Form::open(['route'=>['story.update',$story->id],'method'=>'put']) !!}
 				{!! Form::text('title',$story->title,['class'=>'form-control input-lg','placeholder'=>'TITLE']) !!}
 				{!! Form::textarea('content',$story->content,['class'=>'summernote']) !!}
+				<select name="serie" id="serie" class="form-control input-lg">
+					<option value="none">Select Series if u need it</option>
+					@foreach($series as $serie)
+						<option value="{{ $serie->id }}">{{ $serie->title }}</option>
+					@endforeach
+				</select>
 				{!! Form::submit('Publish',['class'=>'btn btn-primary btn-block']) !!}
 				{!! Form::close() !!}
 			</div>

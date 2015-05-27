@@ -18,7 +18,11 @@ class CreateStoriesTable extends Migration {
 			$table->string('slug')->unique();
 			$table->string('title');
 			$table->text('content');
+			$table->integer('bad_count')->default(0);
+			$table->integer('comment_count')->default(0);
+			$table->text('commenter')->default('');
 			$table->integer('user_id')->unsigned();
+			$table->integer('serie_id')->default(0);
 			$table->timestamps();
 		});
 	}
