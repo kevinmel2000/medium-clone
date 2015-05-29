@@ -54,7 +54,10 @@ class StoryController extends Controller {
 			}else{
 				$story->serie_id = 0;
 			}
-			$slug = Str::slug(Request::input('title')) . "-" . time();
+			$slug = Str::slug(Request::input('title'));
+			if (Story::where('slug',$slug)->count() > 0){
+				$slug = Str::slug(Request::input('title')) . "-" . time();
+			}
 			$story->title = Request::input('title');
 			$story->slug = $slug;
 			$story->content = Xss::clean(Request::input('content'));
