@@ -5,6 +5,7 @@ use App\Http\Requests;
 use App\Notification;
 use App\Serie;
 use App\Story;
+use App\Notification;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;

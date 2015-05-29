@@ -30,10 +30,10 @@
 					</ul>
 					@if(Auth::check())
 						<form ng-submit="postComment($event)">
-							{!! Form::textarea('content','',['class'=>'form-control','required','style'=>'height:130px;','placeholder'=>'Beri komentar yang mendidik.','ng-model'=>'content']) !!}
+							{!! Form::textarea('content','',['class'=>'form-control','required','style'=>'height:130px;','placeholder'=>'Beri komentar yang mendidik.','ng-model'=>'content','required']) !!}
 							{!! Form::hidden('token',csrf_token(),['id'=>'token']) !!}
 							<br>
-							{!! Form::submit('Komentar',['class'=>'btn btn-primary pull-right']) !!}
+							{!! Form::submit('Komentar',['class'=>'btn btn-primary pull-right','ng-show'=>'showBtn']) !!}
 						</form>
 					@else
 						<a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">Login dulu kalo mau komentar :"))</a>

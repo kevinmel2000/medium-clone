@@ -5,6 +5,7 @@ Route::get('/',['as'=>'home','uses'=>'HomeController@index']);
 get('user/{username}',['as'=>'user.show','uses'=>'UserController@show']);
 get('api/comments/{storyid}','CommentController@getComments');
 get('api/notifications/{userid}','NotificationController@getNotif');
+put('api/notifications/{id}','NotificationController@clearNotif');
 Route::resource('series','SerieController');
 Route::resource('story','StoryController');
 Route::resource('comments','CommentController');

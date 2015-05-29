@@ -18,13 +18,7 @@
 	{!! HTML::script('//js.pusher.com/2.2/pusher.min.js') !!}
 	{!! HTML::script('lib/angular/angular.min.js') !!}
 	{!! HTML::script('assets/js/core-ang.js') !!}
-	<script>
-		$(document).ready(function() {
-		  $('pre').each(function(i, block) {
-		    hljs.highlightBlock(block);
-		  });
-		});
-	</script>
+	{!! HTML::script('assets/js/default.js') !!}
 	@if(Auth::check())
 		<script>
 			var pusher = new Pusher('f7c64c5b8411649b6090');
@@ -42,32 +36,7 @@
 @if(Auth::check())
 	<input type="hidden" id="user_id" value="{{ Auth::user()->id }}">
 @endif
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '1527090690898815',
-      xfbml      : true,
-      version    : 'v2.3'
-    });
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=1527090690898815";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script>
 	<audio src="/notif.mp3" id="notifSound"></audio>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
@@ -84,18 +53,16 @@
 				<ul class="nav navbar-nav">
 					<li><a href="{{URL::Route('home')}}">Home</a></li>
 					<li><a href="{{URL::Route('series.index')}}">Series</a></li>
-					{{-- <li><a href="">TOP STORIES</a></li>
-					<li><a href="">BOOKMARKS</a></li> --}}
 				</ul>
 
-				<ul class="nav navbar-nav navbar-right">
+				<ul class="nav navbar-nav navbar-right" ng-controller="notifController">
 					@if(Auth::check())
-						@if( App\Notification::where('user_id',Auth::user()->id)->where('read',0)->count() > 0)
+						@if(App\Notification::where('user_id',Auth::user()->id)->where('read',0)->count() > 0)
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-bell redColor"></i> <span class="badge">{{ App\Notification::where('user_id',Auth::user()->id)->where('read',0)->count() }}</span></a>
 								<ul class="dropdown-menu" role="menu">
 									@foreach( App\Notification::where('user_id',Auth::user()->id)->where('read',0)->orderBy('created_at','desc')->get() as $item)
-										<li><a href="{{ URL::Route('home') }}/story/{{ $item->link }}"> <i class="fa fa-comment-o"></i> {{$item->message}} </a></li>
+										<li><a ng-click="clearNotif({{ $item->id }})" href="{{ URL::Route('home') }}/story/{{ $item->link }}"> <i class="fa fa-comment-o"></i> {{$item->message}} </a></li>
 									@endforeach
 								</ul>
 							</li>
@@ -142,25 +109,5 @@
     </div>
   </div>
 </div>
-<script>
-	$(document).ready(function(){
-		toastr.options = {
-		  "closeButton": false,
-		  "debug": false,
-		  "newestOnTop": true,
-		  "progressBar": true,
-		  "positionClass": "toast-top-right",
-		  "preventDuplicates": false,
-		  "showDuration": "300",
-		  "hideDuration": "1000",
-		  "timeOut": "10000",
-		  "extendedTimeOut": "1000",
-		  "showEasing": "swing",
-		  "hideEasing": "linear",
-		  "showMethod": "fadeIn",
-		  "hideMethod": "fadeOut"
-		}
-	});
-</script>
 </body>
 </html>
