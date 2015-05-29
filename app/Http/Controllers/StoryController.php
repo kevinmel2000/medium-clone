@@ -5,7 +5,6 @@ use App\Http\Requests;
 use App\Notification;
 use App\Serie;
 use App\Story;
-use App\Notification;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -55,7 +54,7 @@ class StoryController extends Controller {
 				$story->serie_id = 0;
 			}
 			$slug = Str::slug(Request::input('title'));
-			if (Story::where('slug',$slug)->count() > 0){
+			if ( Story::where('slug',$slug)->count() > 0){
 				$slug = Str::slug(Request::input('title')) . "-" . time();
 			}
 			$story->title = Request::input('title');
